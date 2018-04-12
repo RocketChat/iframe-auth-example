@@ -28,10 +28,11 @@ app.post('/sso', function (req, res) {
 	}
 
 	// you can save the token on your database as well, if so just return it
+	// MongoDB - services.iframe.token
 	var savedToken = null;
 	if (savedToken) {
 		return res.json({
-			loginToken: savedToken
+			token: savedToken
 		});
 	}
 
