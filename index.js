@@ -22,14 +22,14 @@ app.post('/sso', function (req, res) {
 	// add your own app logic here to validate user session (check cookies, headers, etc)
 
 	// if the user is not already logged in on your system, respond with a 401 status
-	var notLoggedIn = true;
+	var notLoggedIn = false;
 	if (notLoggedIn) {
 		return res.sendStatus(401);
 	}
 
 	// you can save the token on your database as well, if so just return it
 	// MongoDB - services.iframe.token
-	var savedToken = null;
+	var savedToken = false;
 	if (savedToken) {
 		return res.json({
 			token: savedToken
@@ -38,7 +38,7 @@ app.post('/sso', function (req, res) {
 
 	// if dont have the user created on rocket.chat end yet, you can now create it
 	var currentUsername = null;
-	if (!currentUsername) {
+	if (currentUsername) {
 		axios.post('http://localhost:3000/api/v1/users.register', {
 			username: 'new-user',
 			email: 'mynewuser@email.com',
@@ -66,8 +66,8 @@ app.post('/sso', function (req, res) {
 
 		// otherwise create a rocket.chat session using rocket.chat's API
 		axios.post('http://localhost:3000/api/v1/login', {
-			username: 'username-set-previously',
-			password: 'password-set-previously'
+			username: 'new-users',
+			password: 'new-users-passw0rd'
 		}).then(function (response) {
 			if (response.data.status === 'success') {
 				res.json({
@@ -103,7 +103,7 @@ app.post('/login', function (req, res) {
 
 	// if dont have the user created on rocket.chat end yet, you can now create it
 	var currentUsername = null;
-	if (!currentUsername) {
+	if (currentUsername) {
 		axios.post('http://localhost:3000/api/v1/users.register', {
 			username: 'new-user',
 			email: 'mynewuser@email.com',
@@ -137,8 +137,8 @@ app.post('/login', function (req, res) {
 
 		// otherwise create a rocket.chat session using rocket.chat's API
 		axios.post('http://localhost:3000/api/v1/login', {
-			username: 'username-set-previously',
-			password: 'password-set-previously'
+      username: 'new-user',
+      password: 'new-users-passw0rd'
 		}).then(function (response) {
 			if (response.data.status === 'success') {
 
