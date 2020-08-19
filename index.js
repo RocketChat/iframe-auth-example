@@ -49,7 +49,7 @@ app.post('/sso', function (req, res) {
 			// after creation you need to log the user in to get the `authToken`
 			if (response.data.success) {
 				return axios.post('http://localhost:3000/api/v1/login', {
-					username: 'new-user',
+					user: 'new-user',
 					password: 'new-users-passw0rd'
 				});
 			}
@@ -114,7 +114,7 @@ app.post('/login', function (req, res) {
 			// after creation you need to log the user in to get the `authToken`
 			if (response.data.success) {
 				return axios.post('http://localhost:3000/api/v1/login', {
-					username: 'new-user',
+					user: 'new-user',
 					password: 'new-users-passw0rd'
 				});
 			}
@@ -137,7 +137,7 @@ app.post('/login', function (req, res) {
 
 		// otherwise create a rocket.chat session using rocket.chat's API
 		axios.post('http://localhost:3000/api/v1/login', {
-			username: 'username-set-previously',
+			user: 'username-set-previously',
 			password: 'password-set-previously'
 		}).then(function (response) {
 			if (response.data.status === 'success') {
